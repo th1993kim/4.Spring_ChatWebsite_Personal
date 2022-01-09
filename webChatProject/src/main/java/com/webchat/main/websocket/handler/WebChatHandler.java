@@ -1,4 +1,4 @@
-package com.webchat.websocket.handler;
+package com.webchat.main.websocket.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 /*
@@ -15,7 +16,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 	 TextWebSocketHandler은 AbstractWebSocketHandler을 상속받고 AbstractWebSocketHandler 은 WebsocketHandler를 인터페이스로 받는다.
 	 TextWebSocketHandler를 들어가보면 BinaryMessage에 대해 차단을 하고 있다.
 */
-
+@EnableWebSocket
 @Component
 public class WebChatHandler extends TextWebSocketHandler {
 
@@ -29,6 +30,7 @@ public class WebChatHandler extends TextWebSocketHandler {
 	//	WebsocketHandler 의 메서드  웹소켓 연결이 되었을 때 발생하는 메서드
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		super.afterConnectionEstablished(session);
 		webSocketSessionList.add(session);
 		System.out.println("세션이 연결되었습니다."+session);
 	}
@@ -37,6 +39,7 @@ public class WebChatHandler extends TextWebSocketHandler {
 	//WebsocketHandler 의 메서드  웹소켓 연결이 한쪽이 끊어졌을 때 발생하는 메서드
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		super.afterConnectionClosed(session, status);
 		webSocketSessionList.remove(session);
 		System.out.println("세션이 닫혔습니다.." +session);
 	}
@@ -50,7 +53,6 @@ public class WebChatHandler extends TextWebSocketHandler {
 		for(WebSocketSession socketSession : webSocketSessionList) {
 			socketSession.sendMessage(message);
 		}
-		
 	}
 	
 }

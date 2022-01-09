@@ -1,0 +1,49 @@
+<!DOCTYPE html>   
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js" integrity="sha512-ayb5R/nKQ3fgNrQdYynCti/n+GD0ybAhd3ACExcYvOR2J1o3HebiAe/P0oZDx5qwB+xkxuKG6Nc0AFTsPT/JDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- <th:block th:replace="~{/layout/basic :: setContent(~{this :: content}))"> -->
+		<th:block th:fragment="content">
+			<div class="container">
+				<div class="col-6">
+					<label><b>채팅방</b></label>				
+				</div>
+			</div>
+			<div>
+				<div id="msgArea" class="col"></div>
+				<div class="col-6">
+					<input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+					</div>
+				</div>
+			</div>
+		</th:block> 
+	<!-- </th:block> -->
+</body>
+
+<script th:inline="javascript"> //서버사이드에서 java 객체 쓰기위함
+let chatClient =null;
+$(function(){
+	connect();
+});
+
+function connect(){ 
+	var socket = new SockJS('/stomp/chat');
+	chatClient = Stomp.over(socket);
+	chatClient.connect({},function(frame){
+		console.log("connected : "+ frame);
+		chatClient.subscribe('/channel/chatroom/1',function(greeting){
+			console.log(JSON.parse(greeting.body).content);
+		})
+	});
+}
+</script>
+
+</html>
