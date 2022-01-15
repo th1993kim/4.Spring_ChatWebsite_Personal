@@ -30,16 +30,14 @@ public class WebChatHandler extends TextWebSocketHandler {
 	//	WebsocketHandler 의 메서드  웹소켓 연결이 되었을 때 발생하는 메서드
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		super.afterConnectionEstablished(session);
 		webSocketSessionList.add(session);
 		System.out.println("세션이 연결되었습니다."+session);
-	}
+	} 
 	
 	
 	//WebsocketHandler 의 메서드  웹소켓 연결이 한쪽이 끊어졌을 때 발생하는 메서드
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		super.afterConnectionClosed(session, status);
 		webSocketSessionList.remove(session);
 		System.out.println("세션이 닫혔습니다.." +session);
 	}

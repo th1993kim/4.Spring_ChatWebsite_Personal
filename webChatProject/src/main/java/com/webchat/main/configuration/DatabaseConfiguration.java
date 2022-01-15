@@ -21,7 +21,7 @@ public class DatabaseConfiguration {
 	
 	/* 
 	 	ApplicationContext : Spring에서는 빈의 생성과 관계 설정과 같은 제어를 담당하는 IoC(Inversion Of Control)컨테이너인
-	 	빈 팩토리(Bean Factory)가 존재한다. 하지만 실제로는 빈의 생성과 관계설정 외에 추가적인 기능이 필요한데, 이러한 이류로 Bean Factory를
+	 	빈 팩토리(Bean Factory)가 존재한다. 하지만 실제로는 빈의 생성과 관계설정 외에 추가적인 기능이 필요한데, 이러한 이유로 Bean Factory를
 	 	상속받아 확장한 Application Context를 주로 사용한다.
 	  
 	  	애플리케이션 컨텍스트는 별도의 설정 정보를 참고하고 IoC를 적용하여 빈의 생성, 관계설정 등의 제어작업을 총괄한다.
