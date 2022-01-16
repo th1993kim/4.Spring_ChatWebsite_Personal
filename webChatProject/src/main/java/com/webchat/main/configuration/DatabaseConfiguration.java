@@ -75,6 +75,13 @@ public class DatabaseConfiguration {
 	}
 	
 	
+	//@ConfigurationProperties를 통해 외부 설정파일의 (application.properties)의 값을 읽어올 수있다.
+	@Bean
+	@ConfigurationProperties(prefix="mybatis.configuration")
+	public org.apache.ibatis.session.Configuration mybatisConfig(){
+		return new org.apache.ibatis.session.Configuration();
+	}
+	
 	/*
 	 	MyBatis SqlSessionFactory : 데이터베이스와의 연결과 SQL실행에 대한 모든 것을 가진 객체이다.
 	 	이 객체가 DataSource를 참조하여 MyBatis와 MySql 서버를 연동시켜준다.
@@ -86,6 +93,7 @@ public class DatabaseConfiguration {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mapper/**/sql-*.xml"));
+		sqlSessionFactoryBean.setConfiguration(mybatisConfig()); //위의 설정 읽어온 것을 적용
 		return sqlSessionFactoryBean.getObject();
 	}
 
