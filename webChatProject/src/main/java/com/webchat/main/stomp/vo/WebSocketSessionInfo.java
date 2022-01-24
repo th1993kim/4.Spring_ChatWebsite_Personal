@@ -7,8 +7,10 @@ import org.springframework.web.socket.WebSocketSession;
 public class WebSocketSessionInfo {
 	
 	private WebSocketSession session;
+	private String ipAddress;
 	private Integer conCnt;
 	private boolean conStatus;
+	
 	
 	
 	public WebSocketSessionInfo() {
@@ -20,6 +22,14 @@ public class WebSocketSessionInfo {
 		this.conStatus = conStatus;
 	}
 	
+	
+	
+	public String getIpAddress() {
+		return ipAddress;
+	}
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
 	public WebSocketSession getSession() {
 		return session;
 	}

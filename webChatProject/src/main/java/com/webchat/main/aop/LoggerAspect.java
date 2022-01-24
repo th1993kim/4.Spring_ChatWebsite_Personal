@@ -20,6 +20,7 @@ public class LoggerAspect {
 	 	Around 어노테이션을 통해 해당 기능이 실행될 시점, 즉 어드바이스를 정의한다.
 	 	어드바이스는 다섯 종류가 있는데, Around는 메서드의 실행 전후 또는 예외발생 시점에 사용하는 어드바이스이다. (범용적이다.)
 	 	execution은 포인트컷 표현식으로 적용할 메서드를 명시할 때 사용된다.
+	 	execution 표현식 : ..은 0개이상의 의미, *Controller는 Controller로 끝나는 모든 클래스의 *(..) << 파라미터가 0 개이상인 모든 메서드
 	 */
 	@Around("execution(* com.webchat.main..controller.*Controller.*(..))")
 	public Object logPrint(ProceedingJoinPoint joinPoint) throws Throwable{

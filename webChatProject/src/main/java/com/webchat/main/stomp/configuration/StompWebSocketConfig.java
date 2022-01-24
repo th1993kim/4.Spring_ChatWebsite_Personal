@@ -61,6 +61,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 						}else {
 							WebSocketSessionInfo webSocketSessionInfo = new WebSocketSessionInfo();
 							webSocketSessionInfo.setSession(session);
+							webSocketSessionInfo.setIpAddress(ipAdress);
 							webSocketSessionInfo.setConCnt(1);
 							webSocketSessionInfo.setConStatus(true);
 							sessionMap.put(ipAdress, webSocketSessionInfo);    
@@ -121,6 +122,16 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		registry.setApplicationDestinationPrefixes("/pub"); //MessageMapping을 통해서 /pub/hello 로 보내주면 /pub/bye와 같은 요청에 대해서 분기처리한다. 
 		registry.enableSimpleBroker("/channel"); //클라이언트에게 받은 메시지를 다시 보내줄  prefix이다. 클라이언트가 경로가 /channel/1 과 같이 같은 경로 인 사람들에게 메시지를 보낸다 
+	}
+
+
+	public static Map<String, WebSocketSessionInfo> getSessionMap() {
+		return sessionMap;
+	}
+
+
+	public static void setSessionMap(Map<String, WebSocketSessionInfo> sessionMap) {
+		StompWebSocketConfig.sessionMap = sessionMap;
 	}
 
 	

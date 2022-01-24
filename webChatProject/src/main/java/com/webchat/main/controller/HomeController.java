@@ -17,7 +17,6 @@ public class HomeController {
 	@RequestMapping("/chatRoom.do")
 	public String chatRoom() {
 		logger.debug("chatRoom.do");
-		System.out.println("여기에 들어오는지는??"); 
 		ModelAndView mv = new ModelAndView("/chat/chatRoom");      
 		return "/chat/chatRoom"; 
 	}
